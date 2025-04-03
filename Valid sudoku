@@ -1,0 +1,30 @@
+
+
+class Solution {
+public:
+    bool isValidSudoku(vector<vector<char>>& board) {
+
+        unordered_map<int, unordered_map<char, bool>> rows;
+        unordered_map<int, unordered_map<char, bool>> cols;
+        unordered_map<int, unordered_map<char, bool>> boxes;
+        
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                char num = board[i][j];
+                if (num == '.') continue;
+                
+                if (rows[i][num]) return false;
+                rows[i][num] = true;
+                
+                if (cols[j][num]) return false;
+                cols[j][num] = true;
+                
+                int boxIndex = (i / 3) * 3 + (j / 3);
+                if (boxes[boxIndex][num]) return false;
+                boxes[boxIndex][num] = true;
+            }
+        }
+        
+        return true;
+    }
+};
